@@ -1,18 +1,18 @@
 <template>
   <div id="AddCar">
     <h1>Add new car</h1>
-      <form @submit.prevent>
+      <form @submit.prevent = 'addNewCar()'>
           <div class="form-group">
             <label for="brand">Brand</label>
-            <input type="text" class="form-control" id="brand" v-model='NewCar.brand'>
+            <input type="text" class="form-control" id="brand" v-model='NewCar.brand' required minlength="2">
           </div>
           <div class="form-group">
             <label for="brand">Model</label>
-            <input type="text" class="form-control" id="brand"  v-model='NewCar.model'>
+            <input  type="text" class="form-control" id="brand"  v-model='NewCar.model' required minlength="2" >
           </div>
           <div class="form-group">
             <label for="year">Select year</label>
-            <select class="form-control" id="year" v-model='NewCar.year'>
+            <select class="form-control" id="year" v-model='NewCar.year' required>
                 <option v-for="year in getCurrentYear()" v-if="year >= 1990" :key= 'year' :value="year">{{ year }}</option>
             </select>
           </div>
@@ -23,15 +23,15 @@
 
            <div class="form-group">
             <label for="maxSpeed">numberOfDoors</label>
-            <input type="number" class="form-control" id="numberOfDoors"  v-model='NewCar.numberOfDoors'>
+            <input type="number" class="form-control" id="numberOfDoors"  v-model='NewCar.numberOfDoors' required>
           </div>
 
-           <div class="form-group">
+           <div class="form-group" required>
             <label for="maxSpeed">isAutomatic</label>
-            <input type="checkbox" class="form-control" id="isAutomatic"  v-model='NewCar.isAutomatic'>
+            <input type="checkbox" class="form-control" id="isAutomatic"  v-model='NewCar.isAutomatic' required>
           </div>
           <br>
-          <div class="form-group"> 
+          <div class="form-group" required> 
             <div v-for='engine in typeOfEngines' :key='engine'>
             <input type="radio" id="one" :value='engine' v-model="NewCar.engine">
             <label for="one">{{engine}}</label>
@@ -39,7 +39,7 @@
             </div>
          </div>  
 
-          <button class='btn btn-success' @click="addNewCar()">Add</button>
+          <button class='btn btn-success' type='submit'>Add</button>
     </form>
           <button class='btn btn-danger' @click="reset()">Reset</button>
           <button class='btn btn' @click="preview()">Preview</button>
