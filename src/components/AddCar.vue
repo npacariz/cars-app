@@ -1,5 +1,6 @@
 <template>
   <div id="AddCar">
+    <h1>Add new car</h1>
       <form @submit.prevent>
           <div class="form-group">
             <label for="brand">Brand</label>
@@ -40,7 +41,7 @@
 
           <button class='btn btn-success' @click = "addNewCar()">Add</button>
     </form>
-    
+          <button class='btn btn' @click = "reset()">Reset</button>
 
   </div>
 </template>
@@ -66,10 +67,14 @@ export default {
     },
     addNewCar() {
       cars.add(this.NewCar)
-      .then( this.$router.push('/cars'))
+      .then( 
+        this.$router.push('/cars'))
       .catch(error => console.log(error))
-
-     
+    },
+    reset() {
+      this.NewCar = {
+        isAutomatic: false
+      }
     }
 }
 
