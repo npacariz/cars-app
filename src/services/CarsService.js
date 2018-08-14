@@ -12,6 +12,14 @@ export default  class Cars {
     add(newCar) {
         return axios.post('cars', newCar)
     }
+
+    get(id) {
+        return axios.get(`cars/${id}`)
+    }
+
+    edit(editCar) {
+        return axios.put(`cars/${editCar.id}`, editCar)
+    }
 }
 
 export const cars =  new Cars;

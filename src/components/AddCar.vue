@@ -1,7 +1,7 @@
 <template>
   <div id="AddCar">
-    <h1>Add new car</h1>
-      <form @submit.prevent = 'addNewCar()'>
+    <h1>{{title}}</h1>
+      <form @submit.prevent = 'submit()'>
           <div class="form-group">
             <label for="brand">Brand</label>
             <input type="text" class="form-control" id="brand" v-model='NewCar.brand' required minlength="2">
@@ -33,13 +33,13 @@
           <br>
           <div class="form-group" required> 
             <div v-for='engine in typeOfEngines' :key='engine'>
-            <input type="radio" id="one" :value='engine' v-model="NewCar.engine">
-            <label for="one">{{engine}}</label>
-            <br>
+              <input type="radio" id="one" :value='engine' v-model="NewCar.engine">
+              <label for="one">{{engine}}</label>
+              <br>
             </div>
          </div>  
 
-          <button class='btn btn-success' type='submit'>Add</button>
+          <button class='btn btn-success' type='submit'>{{button}}</button>
     </form>
           <button class='btn btn-danger' @click="reset()">Reset</button>
           <button class='btn btn' @click="preview()">Preview</button>
@@ -56,8 +56,16 @@ export default {
   data() {
     return {
       typeOfEngines: ['diesel', 'petrol', 'electric', 'hybrid'],
+      title: "Add new car",
+      button: "Add",
       NewCar: {
-        isAutomatic: false
+        brand: '',
+        model: '',
+        year: 0,
+        maxSpeed: 0,
+        numberOfDoors: 0,
+        isAutomatic: false,
+        engine: 'Not Selected',
       }
     }
   },
@@ -66,17 +74,24 @@ export default {
     getCurrentYear() {
       return new Date().getFullYear();
     },
+
+
+    submit() {
+      this.$route.params.id? this.editCar() : this.addNewCar()
+    }, 
+
     addNewCar() {
       cars.add(this.NewCar)
       .then( 
         this.$router.push('/cars'))
-      .catch(error => console.log(error))
     },
-    reset() {
-      this.NewCar = {
-        isAutomatic: false
-      }
+    editCar() {
+        cars.edit(this.NewCar)
+       .then(() => {
+        this.$router.push('/cars')})
+      
     },
+    
     preview() {
       alert(`
       Brand: ${this.NewCar.brand} 
@@ -88,7 +103,38 @@ export default {
       Engine: ${this.NewCar.engine}
       `)
     },
-}
+
+     reset() {
+      this.NewCar = {
+        brand: '',
+        model: '',
+        year: 0,
+        maxSpeed: 0,
+        numberOfDoors: 0,
+        isAutomatic: false,
+        engine: 'Not Selected',
+      }
+    },
+
+},
+
+computed: {
+    checkId() {
+     if(!this.$route.params.id){
+     return this.reset();
+     }
+    }
+  },
+
+created() {
+      if(this.$route.params.id){
+        this.title = "Edit car",
+        this.button = 'Edit'
+        cars.get(this.$route.params.id)
+        .then(response => this.NewCar = response.data)
+       
+      }
+    }
 
 }
 </script>
