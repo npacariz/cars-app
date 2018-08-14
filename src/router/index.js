@@ -1,32 +1,32 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router'
-import AppCars from '../components/AppCars.vue'
-import AddCar from '../components/AddCar.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import AppCars from "../pages/AppCars.vue";
+import AddCar from "../pages/AddCar.vue";
 
-Vue.use(VueRouter)
-
+Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: '/',
-        redirect: '/cars'
-    },
-    {
-        path: '/cars',
-        component: AppCars,
-        name: 'cars'
-    },
-    {
-        path: '/add',
-        component: AddCar
-    },
-    {
-        path: '/edit/:id',
-        component: AddCar,
-        name: 'edit'
-    }
-]
+  {
+    path: "/",
+    redirect: "/cars"
+  },
+  {
+    path: "/cars",
+    component: AppCars,
+    name: "cars"
+  },
+  {
+    path: "/add",
+    component: AddCar,
+    name: "addCar"
+  },
+  {
+    path: "/edit/:id",
+    component: AddCar,
+    name: "edit"
+  }
+];
 
-const router = new VueRouter({routes});
+const router = new VueRouter({ mode: "history", routes });
 
 export default router;

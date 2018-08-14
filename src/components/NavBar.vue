@@ -11,7 +11,7 @@
             <router-link class="nav-link" to='/cars'>Cars</router-link>
           </li>
           <li class="nav-item">
-             <router-link class="nav-link" to='/add'>Add Car</router-link>
+             <router-link class="nav-link" :to="{name:'addCar'}">Add Car</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
@@ -24,13 +24,10 @@
 
 <script>
 export default {
-  name: 'NavBar',
-  
-}
+  name: "NavBar"
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 </style>
