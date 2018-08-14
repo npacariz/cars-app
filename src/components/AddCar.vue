@@ -39,9 +39,10 @@
             </div>
          </div>  
 
-          <button class='btn btn-success' @click = "addNewCar()">Add</button>
+          <button class='btn btn-success' @click="addNewCar()">Add</button>
     </form>
-          <button class='btn btn' @click = "reset()">Reset</button>
+          <button class='btn btn-danger' @click="reset()">Reset</button>
+          <button class='btn btn' @click="preview()">Preview</button>
 
   </div>
 </template>
@@ -75,7 +76,18 @@ export default {
       this.NewCar = {
         isAutomatic: false
       }
-    }
+    },
+    preview() {
+      alert(`
+      Brand: ${this.NewCar.brand} 
+      Model: ${this.NewCar.model}
+      Year: ${this.NewCar.year}
+      Max Speed: ${this.NewCar.maxSpeed}
+      Number of doors: ${this.NewCar.numberOfDoors}
+      Automatic: ${this.NewCar.isAutomatic}
+      Engine: ${this.NewCar.engine}
+      `)
+    },
 }
 
 }
