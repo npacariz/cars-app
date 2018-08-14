@@ -25,7 +25,7 @@
                     <td>{{car.engine}}</td>
                     <td>{{car.numberOfDoors}}</td>
                     <td><router-link class='btn btn-warning' :to="{name:'edit', params: {id: car.id}}">Edit</router-link></td>    
-                       
+                    <td><button @click='deleteCar(car.id)' class='btn btn-danger'>Delete</button></td>      
                 </tr>
             </tbody>
         </table>
@@ -35,13 +35,25 @@
 </template>
 
 <script>
+import { cars } from '../services/CarsService'
 
 export default {
   name: 'CarList',
+  props:['listOfCars'],
+  methods: {
+      deleteCar(id){
 
-    props:['listOfCars']
-
-  
+        if(confirm('Are you shure too delete this contact')) {
+            cars.delete(id)
+            .then(()=> {
+            this.$emit('deleteCar', id )
+            this.$router.push('/cars')
+            })
+        }
+         
+      }
+      
+  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="appCars">
-      <CarList  :listOfCars= 'listOfCars'/>
+      <CarList @deleteCar="deleteCar" :listOfCars= 'listOfCars'/>
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
             listOfCars: []
         }
     },
+    methods: {
+        deleteCar(id) {
+           this.listOfCars = this.listOfCars.filter(cars => cars.id != id);
+        }
+    },
      beforeRouteEnter(to,from,next) {
         cars.getAll().then( response => {
             next( vm => {
@@ -27,9 +32,6 @@ export default {
         }).catch(error => console.log(error))
     }
 
-   
-       
- 
   
 }
 </script>

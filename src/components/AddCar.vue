@@ -119,21 +119,30 @@ export default {
 },
 
 computed: {
-    checkId() {
-     if(!this.$route.params.id){
-     return this.reset();
+  checkId: {
+    // getter
+    get: function () {
+     if(this.$route.params.id){
+       conosle.log('get')
      }
-    }
-  },
+      
+    },
+ 
+    set: function () {
+      if(!this.$route.params.id){
+      conosle.log('set')
+     }
+    }  
+  }
+},
 
 created() {
-      if(this.$route.params.id){
+       if(this.$route.params.id){
         this.title = "Edit car",
         this.button = 'Edit'
         cars.get(this.$route.params.id)
         .then(response => this.NewCar = response.data)
-       
-      }
+     }
     }
 
 }
