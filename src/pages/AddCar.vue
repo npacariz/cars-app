@@ -31,8 +31,7 @@ export default {
     },
 
     addNewCar() {
-      console.log(this.newCar);
-      cars.add(this.newCar).then(this.$router.push("/cars"));
+      cars.add(this.newCar).then(this.$router.push({ name: "cars" }));
     },
     editCar() {
       cars.edit(this.newCar).then(() => {
@@ -50,23 +49,6 @@ export default {
         isAutomatic: true,
         engine: "diesel"
       });
-    }
-  },
-
-  computed: {
-    checkId: {
-      // getter
-      get: function() {
-        if (this.$route.params.id) {
-          conosle.log("get");
-        }
-      },
-
-      set: function() {
-        if (!this.$route.params.id) {
-          conosle.log("set");
-        }
-      }
     }
   },
 

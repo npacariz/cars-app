@@ -19,6 +19,7 @@
           <div class="form-group">
             <label for="maxSpeed">maxSpeed</label>
             <input type="number" class="form-control" id="maxSpeed"  v-model='newCar.maxSpeed'>
+            <p v-if="this.error.maxSpeed">{{error.maxSpeed}}</p>
           </div>
 
            <div class="form-group">
@@ -31,18 +32,20 @@
             <input type="checkbox" class="form-control" id="isAutomatic"  v-model='newCar.isAutomatic'>
           </div>
           <br>
-          <div class="form-group" required> 
+          <div class="form-group"> 
             <div v-for='engine in typeOfEngines' :key='engine'>
-              <input type="radio" id="one" :value='engine' v-model="newCar.engine">
+              <input type="radio" id="one" :value='engine' v-model="newCar.engine" required>
               <label for="one">{{engine}}</label>
               <br>
             </div>
          </div>  
-         
-        <button class='btn btn-success' type='submit'>{{titles.buttonTitle}}</button>      
+        <div class="form-group" required> 
+          <button class='btn btn-success' type='submit'>{{titles.buttonTitle}}</button>    
+          <button class='btn btn-danger' type='reset' @click="reset()" >Reset</button>
+          <button class='btn btn' type='button' @click="preview">Preview</button>  
+        </div>
     </form>
-        <button class='btn btn-danger' @click="reset()" >Reset</button>
-        <button class='btn btn' @click="preview">Preview</button>
+       
         
  
 
@@ -50,7 +53,6 @@
 </template>
 
 <script>
-import { cars } from "../services/CarsService";
 export default {
   name: "CarForm",
   props: {
@@ -68,6 +70,11 @@ export default {
       return new Date().getFullYear();
     },
     submit() {
+      if (this.newCar.maxSpeed < 0) {
+        return alert("Max Speed must be greater than 0");
+      } else if (this.newCar.numberOfDoors < 0) {
+        return alert("Max Speed must be greater than 0");
+      }
       this.$emit("submit");
     },
     reset() {

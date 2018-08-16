@@ -35,30 +35,24 @@
 </template>
 
 <script>
-import { cars } from '../services/CarsService'
+import { cars } from "../services/CarsService";
 
 export default {
-  name: 'CarList',
-  props:['listOfCars'],
+  name: "CarList",
+  props: ["listOfCars"],
   methods: {
-      deleteCar(id){
-
-        if(confirm('Are you shure too delete this contact')) {
-            cars.delete(id)
-            .then(()=> {
-            this.$emit('deleteCar', id )
-            this.$router.push('/cars')
-            })
-        }
-         
+    deleteCar(id) {
+      if (confirm("Are you sure too delete this contact")) {
+        cars.delete(id).then(() => {
+          this.$emit("deleteCar", id);
+          this.$router.push("/cars");
+        });
       }
-      
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
 </style>
